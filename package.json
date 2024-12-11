@@ -1,0 +1,33 @@
+{
+	"name": "@thoughtsunificator/bookmarks-document",
+	"type": "module",
+	"version": "0.0.1",
+	"main": "index.js",
+	"description": "Bookmarks data structure inspired by the DOM",
+	"author": "Romain Lebesle <oss@thoughtsunificator.me> (https://thoughtsunificator.me)",
+	"license": "MIT",
+	"homepage": "https://github.com/thoughtsunificator/bookmarks-document",
+	"bugs": "https://github.com/thoughtsunificator/bookmarks-document/issues",
+	"repository": "github:thoughtsunificator/bookmarks-document",
+	"devDependencies": {
+		"@thoughtsunificator/mock": "^0.0.11",
+		"ava": "^6.2.0",
+		"c8": "^8.0.0",
+		"docdash": "^2.0.2",
+		"eslint": "^9.13.0",
+		"globals": "^15.11.0",
+		"jsdoc": "^4.0.4",
+		"jsdom": "^25.0.1"
+	},
+	"scripts": {
+		"build:documentation": "jsdoc -c .jsdoc.json -d dist/documentation",
+		"test": "ava --config .ava.js",
+		"test:coverage": "c8 -o dist/coverage ava",
+		"lint": "npm run lint:ecmascript",
+		"lint:ecmascript": "eslint -c .eslint.js"
+	},
+	"engines": {
+		"node": ">=18.0.0",
+		"npm": ">=8.0.0"
+	}
+}
