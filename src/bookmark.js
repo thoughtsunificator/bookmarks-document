@@ -42,6 +42,11 @@ class Bookmark {
 		this.type = type
 		/** @type {BookmarkFolder} */
 		this.parent = null
+		/**
+		 * All attributes must be valid keys and values according to JSON.stringify.
+		 * @type {object}
+		 * **/
+		this.attributes = {}
 	}
 
 	/**

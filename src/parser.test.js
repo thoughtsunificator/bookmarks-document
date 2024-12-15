@@ -16,6 +16,7 @@ ava("Parse internal JSON", (test) => {
 						"title": "New Folder 2",
 						"createdAt": "2024-10-20T23:07:46.916Z",
 						"updatedAt": null,
+						"attributes": { "foo": "bar" },
 						"children": [
 							{
 								"type": "folder",
@@ -61,13 +62,13 @@ ava("Parse internal JSON", (test) => {
 			}
 		]
 	)
-
 	test.is(bookmarksDocument.documentElement.children.length, 3)
 	test.is(bookmarksDocument.documentElement.children[0].title, "New Folder 1")
 	test.deepEqual(bookmarksDocument.documentElement.children[0].createdAt, new Date("2024-10-20T23:07:45.034Z"))
 	test.deepEqual(bookmarksDocument.documentElement.children[0].updatedAt, new Date("2024-11-20T23:07:45.034Z"))
 	test.true(bookmarksDocument.documentElement.children[0] instanceof BookmarkFolder)
 	test.is(bookmarksDocument.documentElement.children[0].children[0].title, "New Folder 2")
+	test.deepEqual(bookmarksDocument.documentElement.children[0].children[0].attributes, { foo: "bar" })
 	test.is(bookmarksDocument.documentElement.children[0].children[0].children[0].title, "New Folder 3")
 	test.is(bookmarksDocument.documentElement.children[1].title, "New Folder 4")
 	test.is(bookmarksDocument.documentElement.children[1].children[0].title, "New Folder 5")

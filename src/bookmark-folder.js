@@ -165,6 +165,7 @@ class BookmarkFolder extends Bookmark {
 			title: this.title,
 			createdAt: this.createdAt.toISOString(),
 			updatedAt: this.updatedAt?.toISOString() || null,
+			attributes: this.attributes,
 			children: this.children.map(child => child.serialize())
 		}
 	}

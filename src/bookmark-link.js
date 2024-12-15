@@ -49,7 +49,8 @@ class BookmarkLink extends Bookmark {
 			icon: this.icon,
 			url: this.url,
 			createdAt: this.createdAt.toISOString(),
-			updatedAt: this.updatedAt?.toISOString()
+			updatedAt: this.updatedAt?.toISOString(),
+			attributes: this.attributes
 		}
 	}
 

@@ -95,6 +95,7 @@ ava("Serialize the bookmark folder to an object keeping only relevant properties
 	const bookmarksDocument = new BookmarksDocument()
 	bookmarkFolder.ownerDocument = bookmarksDocument
 	const a = new BookmarkFolder("A", new Date(), new Date())
+	a.attributes.foo = "bar"
 	bookmarkFolder.appendChild(a)
 	const b = new BookmarkFolder("B", new Date(), new Date())
 	bookmarkFolder.appendChild(b)
@@ -105,18 +106,21 @@ ava("Serialize the bookmark folder to an object keeping only relevant properties
 		title: "Root",
 		createdAt: bookmarkFolder.createdAt.toISOString(),
 		updatedAt: bookmarkFolder.updatedAt.toISOString(),
+		attributes: {},
 		children: [
 			{
 				type: "folder",
 				title: "A",
 				createdAt: a.createdAt.toISOString(),
 				updatedAt: a.updatedAt.toISOString(),
+				attributes: { foo: "bar" },
 				children: [
 					{
 						type: "folder",
 						title: "C",
 						createdAt: c.createdAt.toISOString(),
 						updatedAt: c.updatedAt.toISOString(),
+						attributes: {},
 						children: []
 					}
 				]
@@ -126,6 +130,7 @@ ava("Serialize the bookmark folder to an object keeping only relevant properties
 				title: "B",
 				createdAt: b.createdAt.toISOString(),
 				updatedAt: b.updatedAt.toISOString(),
+				attributes: {},
 				children: []
 			}
 		]

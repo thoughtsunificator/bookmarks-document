@@ -26,12 +26,14 @@ ava("Clone a bookmark link", (test) => {
 
 ava("Serialize the bookmark link to an object keeping only relevant properties", (test) => {
 	const bookmarkLink = new BookmarkLink("linktitle", "linkicon", "linkurl", new Date(), new Date())
+	bookmarkLink.attributes.bar = "foo"
 	test.deepEqual(bookmarkLink.serialize(), {
 		type: "link",
 		title: "linktitle",
 		icon: "linkicon",
 		url: "linkurl",
 		createdAt: bookmarkLink.createdAt.toISOString(),
-		updatedAt: bookmarkLink.updatedAt.toISOString()
+		updatedAt: bookmarkLink.updatedAt.toISOString(),
+		attributes: { bar: "foo" }
 	})
 })

@@ -114,17 +114,19 @@ export function deserialize(data, parentBookmark) {
 	let bookmark = null
 	if(data.type === "folder") {
 		bookmark = parentBookmark.ownerDocument.createFolder(data.title, new Date(data.createdAt))
-		if(data.updatedAt) {
-			bookmark.updatedAt = new Date(data.updatedAt)
-		}
 		for(const child of data.children) {
 			bookmark.appendChild(deserialize(child, bookmark))
 		}
 	} else if(data.type === "link") {
 		bookmark = parentBookmark.ownerDocument.createLink(data.title, data.icon, data.url, new Date(data.createdAt))
-		if(data.updatedAt) {
-			bookmark.updatedAt = new Date(data.updatedAt)
-		}
+	} else {
+		throw new Error(`Unknown Bookmark type: ${data.type}. Type must be one of following Symbol: Bookmark.FOLDER or Bookmark.LINK.`)
+	}
+	if(data.updatedAt) {
+		bookmark.updatedAt = new Date(data.updatedAt)
+	}
+	if(data.attributes) {
+		bookmark.attributes = Object.assign(bookmark.attributes, data.attributes)
 	}
 	return bookmark
 }
