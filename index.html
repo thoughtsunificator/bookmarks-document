@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-bookmark-folder-BookmarkFolder.html">BookmarkFolder</a><ul class='methods'><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#appendChild">appendChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#removeChild">removeChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#contains">contains</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertBefore">insertBefore</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertAfter">insertAfter</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#serialize">serialize</a></li></ul></li><li><a href="module-bookmark-link-BookmarkLink.html">BookmarkLink</a><ul class='methods'><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#serialize">serialize</a></li></ul></li><li><a href="Bookmark.html">Bookmark</a><ul class='methods'><li data-type='method'><a href="Bookmark.html#serialize">serialize</a></li><li data-type='method'><a href="Bookmark.html#clone">clone</a></li><li data-type='method'><a href="Bookmark.html#ascendantsUnfolded">ascendantsUnfolded</a></li><li data-type='method'><a href="Bookmark.html#getDepth">getDepth</a></li><li data-type='method'><a href="Bookmark.html#remove">remove</a></li></ul></li><li><a href="BookmarksDocument.html">BookmarksDocument</a><ul class='methods'><li data-type='method'><a href="BookmarksDocument.html#createLink">createLink</a></li><li data-type='method'><a href="BookmarksDocument.html#createFolder">createFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createVirtualFolder">createVirtualFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createTreeWalker">createTreeWalker</a></li><li data-type='method'><a href="BookmarksDocument.html#serialize">serialize</a></li><li data-type='method'><a href="BookmarksDocument.html#getBookmarksCount">getBookmarksCount</a></li></ul></li><li><a href="TreeWalker.html">TreeWalker</a><ul class='methods'><li data-type='method'><a href="TreeWalker.html#parentBookmark">parentBookmark</a></li><li data-type='method'><a href="TreeWalker.html#nextBookmark">nextBookmark</a></li></ul></li><li><a href="module-virtual-bookmark-folder-VirtualBookmarkFolder.html">VirtualBookmarkFolder</a></li></ul><h3>Modules</h3><ul><li><a href="module-bookmark-folder.html">bookmark-folder</a></li><li><a href="module-bookmark-link.html">bookmark-link</a></li><li><a href="module-parser.html">parser</a><ul class='methods'><li data-type='method'><a href="module-parser.html#.parseInternalJSON">parseInternalJSON</a></li><li data-type='method'><a href="module-parser.html#.parseHTML">parseHTML</a></li><li data-type='method'><a href="module-parser.html#.deserialize">deserialize</a></li><li data-type='method'><a href="module-parser.html#.createNetscapeBookmarkDocument">createNetscapeBookmarkDocument</a></li></ul></li><li><a href="module-virtual-bookmark-folder.html">virtual-bookmark-folder</a></li></ul><h3><a href="global.html">Global</a></h3>
+    
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1 id="bookmarks-document">bookmarks-document</h1>
+<p>Bookmarks data structure inspired by the <a href="https://dom.spec.whatwg.org/#interface-document">DOM</a>.</p>
+<h2 id="%F0%9F%98%A0-motivations">😠 Motivations</h2>
+<ul>
+<li>There are not that many bookmarks data structures out there even less with a straight-forward API</li>
+</ul>
+<h2 id="%E2%9C%A8-features">✨ Features</h2>
+<p>Simple, straight-forward and familiar API before anything.</p>
+<ul>
+<li>✅ ESM and bloat-free</li>
+<li>✅ Create, read, delete and update both bookmark links and folders</li>
+<li>✅ Supports well known formats such as Netscape Bookmark File Format</li>
+<li>✅ Can be serialized to a JSON representation</li>
+</ul>
+<blockquote>
+<p>While this is not strictly a feature, this software is <a href="https://www.gnu.org/philosophy/free-sw.en.html">free</a>, <a href="https://en.wikipedia.org/wiki/Self-hosting_(web_services)">self-hosted</a> and <a href="https://unhosted.org">unhosted</a>.</p>
+</blockquote>
+<blockquote>
+<p>💡 Missing a feature? Checkout the <a href="./TODO.md">TODO file</a> to see what work is in progress.</p>
+</blockquote>
+<h2 id="usage">Usage</h2>
+<p><strong>Prerequisites</strong>:</p>
+<ul>
+<li>Node.js &gt;=18.0.0</li>
+<li>npm &gt;=8.0.0</li>
+</ul>
+<h2 id="%F0%9F%9A%80-how-to-use">🚀 How to use</h2>
+<p>Please refer to the <a href="./documentation/user-manual.md">user manual</a>.</p>
+<h2 id="%F0%9F%94%A8-development">🔨 Development</h2>
+<blockquote>
+<p>It is recommended to read the <a href="../documentation/developer-manual.md">developer manual</a>.</p>
+</blockquote>
+<h3 id="%F0%9F%A7%AA-testing">🧪 Testing</h3>
+<p>Lint:</p>
+<ul>
+<li><code>npm run lint</code></li>
+</ul>
+<p>Lint individually:</p>
+<ul>
+<li>
+<details>
+<summary>Spoiler</summary>
+<p>Files (<a href="https://github.com/webpro-nl/knip">Knip</a>):</p>
+<ul>
+<li><code>npm run lint:files</code></li>
+</ul>
+<p>Javascript files (<a href="https://github.com/eslint/eslint">eslint</a>):</p>
+<ul>
+<li><code>npm run lint:ecmascript</code></li>
+</ul>
+</li>
+</ul>
+</details>
+<p>Run test with <a href="https://github.com/avajs/ava">ava</a>:</p>
+<ul>
+<li><code>npm test</code></li>
+</ul>
+<blockquote>
+<p>Use the <code>NODE_DEBUG=bookmarks-document</code> env to enable debug logs while testing.
+<code>npm run test:watch</code> is also available if you want to enable ava's <a href="https://github.com/avajs/ava/blob/main/docs/recipes/watch-mode.md">watch mode</a>.</p>
+</blockquote>
+<p>Coverage:</p>
+<ul>
+<li><code>npm run test:coverage</code></li>
+</ul>
+<blockquote>
+<p>The coverage report files are available under <strong>dist/coverage</strong></p>
+</blockquote>
+<h2 id="%F0%9F%A7%92-contributions">🧒 Contributions</h2>
+<p>Contributions <a href="./.github/CONTRIBUTING.md">are more than welcome</a>.</p>
+<h2 id="%F0%9F%91%BE-bug-report">👾 Bug report</h2>
+<p>❗Please search <a href="https://github.com/thoughtsunificator/bookmarks-document/labels/bug">the existing issues</a> and make sure the bug has not already been reported before making a new one.</p>
+<p>To report a bug please use <a href="https://github.com/thoughtsunificator/bookmarks-document/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=BUG_REPORT.md&amp;title=">this link</a>.</p>
+<h2 id="%F0%9F%92%A1-feature-request">💡 Feature request</h2>
+<p>❗Make sure your suggestion is not already on the <a href="TODO.md">TODO.md</a> and hasn't <a href="https://github.com/thoughtsunificator/bookmarks-document/labels/enhancement">already been requested</a>.</p>
+<p>To suggest an idea please use <a href="https://github.com/thoughtsunificator/bookmarks-document/issues/new?assignees=&amp;labels=&amp;projects=&amp;template=FEATURE_REQUEST.md&amp;title=">this link</a>.</p></article>
+    </section>
+
+
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 08:31:32 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

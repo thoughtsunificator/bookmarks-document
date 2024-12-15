@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>bookmark.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-bookmark-folder-BookmarkFolder.html">BookmarkFolder</a><ul class='methods'><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#appendChild">appendChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#removeChild">removeChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#contains">contains</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertBefore">insertBefore</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertAfter">insertAfter</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#serialize">serialize</a></li></ul></li><li><a href="module-bookmark-link-BookmarkLink.html">BookmarkLink</a><ul class='methods'><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#serialize">serialize</a></li></ul></li><li><a href="Bookmark.html">Bookmark</a><ul class='methods'><li data-type='method'><a href="Bookmark.html#serialize">serialize</a></li><li data-type='method'><a href="Bookmark.html#clone">clone</a></li><li data-type='method'><a href="Bookmark.html#ascendantsUnfolded">ascendantsUnfolded</a></li><li data-type='method'><a href="Bookmark.html#getDepth">getDepth</a></li><li data-type='method'><a href="Bookmark.html#remove">remove</a></li></ul></li><li><a href="BookmarksDocument.html">BookmarksDocument</a><ul class='methods'><li data-type='method'><a href="BookmarksDocument.html#createLink">createLink</a></li><li data-type='method'><a href="BookmarksDocument.html#createFolder">createFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createVirtualFolder">createVirtualFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createTreeWalker">createTreeWalker</a></li><li data-type='method'><a href="BookmarksDocument.html#serialize">serialize</a></li><li data-type='method'><a href="BookmarksDocument.html#getBookmarksCount">getBookmarksCount</a></li></ul></li><li><a href="TreeWalker.html">TreeWalker</a><ul class='methods'><li data-type='method'><a href="TreeWalker.html#parentBookmark">parentBookmark</a></li><li data-type='method'><a href="TreeWalker.html#nextBookmark">nextBookmark</a></li></ul></li><li><a href="module-virtual-bookmark-folder-VirtualBookmarkFolder.html">VirtualBookmarkFolder</a></li></ul><h3>Modules</h3><ul><li><a href="module-bookmark-folder.html">bookmark-folder</a></li><li><a href="module-bookmark-link.html">bookmark-link</a></li><li><a href="module-parser.html">parser</a><ul class='methods'><li data-type='method'><a href="module-parser.html#.parseInternalJSON">parseInternalJSON</a></li><li data-type='method'><a href="module-parser.html#.parseHTML">parseHTML</a></li><li data-type='method'><a href="module-parser.html#.deserialize">deserialize</a></li><li data-type='method'><a href="module-parser.html#.createNetscapeBookmarkDocument">createNetscapeBookmarkDocument</a></li></ul></li><li><a href="module-virtual-bookmark-folder.html">virtual-bookmark-folder</a></li></ul><h3><a href="global.html">Global</a></h3>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">bookmark.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module bookmark
+ *
+ * @typedef {import("./bookmarks-document.js").default} BookmarksDocument
+ * @typedef {import("./bookmark-folder.js").default}   BookmarkFolder
+ */
+
+/**
+ * Super class for both bookmark folders and links
+ * @example
+ * import { Bookmark } from "@thoughtsunificator/bookmarks-document"
+ */
+class Bookmark {
+
+	/**
+	 * @static
+	 * @readonly
+	 * @type {Symbol}
+	 */
+	static FOLDER = Symbol()
+
+	/**
+	 * @static
+	 * @readonly
+	 * @type {Symbol}
+	 */
+	static LINK = Symbol()
+
+	/**
+	 * @param {string} title
+	 * @param {Symbol} type
+	 * @param {Date}   createdAt   - Valid ISO 8601 date string
+	 * @param {Date}   [updatedAt] - Valid ISO 8601 date string
+	 */
+	constructor(title, type, createdAt, updatedAt) {
+		this.title = title
+		this.createdAt = createdAt
+		this.updatedAt = updatedAt
+		/** @type {BookmarksDocument} */
+		this.ownerDocument = null
+		/** @type {Symbol} */
+		this.type = type
+		/** @type {BookmarkFolder} */
+		this.parent = null
+	}
+
+	/**
+	 * @type {Bookmark}
+	 */
+	get previousSibling() {
+		if(this.parent) {
+			return this.parent.children[this.parent.children.indexOf(this) - 1] || null
+		}
+		return null
+	}
+
+	/**
+	 * @type {Bookmark}
+	 */
+	get nextSibling() {
+		if(this.parent) {
+			return this.parent.children[this.parent.children.indexOf(this) + 1] || null
+		}
+		return null
+	}
+
+	/**
+	 * @type {BookmarksDocument}
+	 */
+	get previousFolderSibling() {
+		if(this.parent) {
+			return this.parent.children.slice(0, this.parent.children.indexOf(this)).reverse().find((bookmark) => bookmark.type === Bookmark.FOLDER)  || null
+		}
+		return null
+	}
+
+	/**
+	 * @type {BookmarksDocument}
+	 */
+	get nextFolderSibling() {
+		if(this.parent) {
+			return this.parent.children.slice(this.parent.children.indexOf(this) + 1).find((bookmark) => bookmark.type === Bookmark.FOLDER)  || null
+		}
+		return null
+	}
+
+	/**
+	 * Return a list of properties that can then be serialized into a string
+	 * @abstract
+	 * @returns {object}
+	 */
+	serialize() {
+		throw new Error("Not implemented")
+	}
+
+	/**
+	 * Returns a duplicate of the current Bookmark.
+	 * @abstract
+	 * @returns {Bookmark}
+	 */
+	clone() {
+		throw new Error("Not implemented")
+	}
+
+	/**
+	 * Whether all ascendants are unfolded
+	 * @returns {boolean}
+	 * @todo move out
+	 */
+	ascendantsUnfolded() {
+		const treeWalker = this.ownerDocument.createTreeWalker(this)
+		while (treeWalker.parentBookmark()) {
+			if(!treeWalker.currentBookmark.unfolded) {
+				return false
+			}
+		}
+		return true
+	}
+
+	/**
+	 * How deep the bookmark is in the hierarchy
+	 * @returns {Number}
+	 * @todo move out
+	 */
+	getDepth() {
+		let depth = 0
+		const treeWalker = this.ownerDocument.createTreeWalker(this)
+		while (treeWalker.parentBookmark()) {
+			depth++
+		}
+		return depth
+	}
+
+	/**
+	 * Remove from the document
+	 */
+	remove() {
+		this.parent.removeChild(this)
+	}
+
+}
+
+export default Bookmark
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 08:31:32 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

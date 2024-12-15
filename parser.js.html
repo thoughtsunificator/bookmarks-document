@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>parser.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-bookmark-folder-BookmarkFolder.html">BookmarkFolder</a><ul class='methods'><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#appendChild">appendChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#removeChild">removeChild</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#contains">contains</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertBefore">insertBefore</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#insertAfter">insertAfter</a></li><li data-type='method'><a href="module-bookmark-folder-BookmarkFolder.html#serialize">serialize</a></li></ul></li><li><a href="module-bookmark-link-BookmarkLink.html">BookmarkLink</a><ul class='methods'><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#clone">clone</a></li><li data-type='method'><a href="module-bookmark-link-BookmarkLink.html#serialize">serialize</a></li></ul></li><li><a href="Bookmark.html">Bookmark</a><ul class='methods'><li data-type='method'><a href="Bookmark.html#serialize">serialize</a></li><li data-type='method'><a href="Bookmark.html#clone">clone</a></li><li data-type='method'><a href="Bookmark.html#ascendantsUnfolded">ascendantsUnfolded</a></li><li data-type='method'><a href="Bookmark.html#getDepth">getDepth</a></li><li data-type='method'><a href="Bookmark.html#remove">remove</a></li></ul></li><li><a href="BookmarksDocument.html">BookmarksDocument</a><ul class='methods'><li data-type='method'><a href="BookmarksDocument.html#createLink">createLink</a></li><li data-type='method'><a href="BookmarksDocument.html#createFolder">createFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createVirtualFolder">createVirtualFolder</a></li><li data-type='method'><a href="BookmarksDocument.html#createTreeWalker">createTreeWalker</a></li><li data-type='method'><a href="BookmarksDocument.html#serialize">serialize</a></li><li data-type='method'><a href="BookmarksDocument.html#getBookmarksCount">getBookmarksCount</a></li></ul></li><li><a href="TreeWalker.html">TreeWalker</a><ul class='methods'><li data-type='method'><a href="TreeWalker.html#parentBookmark">parentBookmark</a></li><li data-type='method'><a href="TreeWalker.html#nextBookmark">nextBookmark</a></li></ul></li><li><a href="module-virtual-bookmark-folder-VirtualBookmarkFolder.html">VirtualBookmarkFolder</a></li></ul><h3>Modules</h3><ul><li><a href="module-bookmark-folder.html">bookmark-folder</a></li><li><a href="module-bookmark-link.html">bookmark-link</a></li><li><a href="module-parser.html">parser</a><ul class='methods'><li data-type='method'><a href="module-parser.html#.parseInternalJSON">parseInternalJSON</a></li><li data-type='method'><a href="module-parser.html#.parseHTML">parseHTML</a></li><li data-type='method'><a href="module-parser.html#.deserialize">deserialize</a></li><li data-type='method'><a href="module-parser.html#.createNetscapeBookmarkDocument">createNetscapeBookmarkDocument</a></li></ul></li><li><a href="module-virtual-bookmark-folder.html">virtual-bookmark-folder</a></li></ul><h3><a href="global.html">Global</a></h3>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">parser.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module parser
+ * @description
+ * Serialization and deserialization
+ * @example
+ * import { Parser } from "@thoughtsunificator/bookmarks-document"
+ */
+
+/**
+ * @todo Move to another repository, this parser will be used by the server
+ * This module is responsible for the parsing of internal and external bookmark documents.
+ * @todo The Parser module should not have to know any details about the BookmarksDocument. It should work with data payload (DataBookmarkLink &amp; DataBookmarkFolder)
+ * @todo Fix netscape bookmark document
+ *
+ * @typedef {import("./bookmark-folder.js").default}      BookmarkFolder
+ * @typedef {import("./bookmark-link.js").default}        BookmarkLink
+ *
+ * @typedef  {object}                                     DataBookmarkFolder
+ * @property {str}                                        type
+ * @property {str}                                        title
+ * @property {str}                                        createdAt   - Valid ISO 8601 date string
+ * @property {str}                                        [updatedAt] - Valid ISO 8601 date string
+ * @property {Array&lt;DataBookmarkLink|DataBookmarkFolder>} children
+ *
+ * @typedef  {object}                                     DataBookmarkLink
+ * @property {str}                                        type
+ * @property {str}                                        title
+ * @property {str}                                        createdAt   - Valid ISO 8601 date string
+ * @property {str}                                        [updatedAt] - Valid ISO 8601 date string
+ * @property {str}                                        url
+ * @property {str}                                        icon
+ *
+ * BookmarkPayload is used to serialize from and deserialize to a BookmarksDocument
+ * @typedef  {Array&lt;DataBookmarkLink|DataBookmarkFolder>} BookmarkPayload
+ *
+ */
+import { BookmarksDocument, Bookmark } from "../index.js"
+
+/**
+* Create a BookmarksDocument from a BookmarkPayload
+* @param   {BookmarkPayload}  data
+* @returns {BookmarksDocument}
+*/
+export function parseInternalJSON(items) {
+	const bookmarksDocument = new BookmarksDocument()
+	for(const item of items) {
+		const bookmark = deserialize(item, bookmarksDocument.documentElement)
+		bookmarksDocument.documentElement.appendChild(bookmark)
+	}
+	return bookmarksDocument
+}
+
+/**
+* Create a BookmarksDocument from a Netscape Bookmark File
+* @see https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa753582(v=vs.85)
+* @param   {str}         		  html
+* @param   {Document}         document
+* @returns {BookmarksDocument}
+*/
+export function parseHTML(html, document) {
+	const div = document.createElement("div")
+	div.innerHTML = html
+	const bookmarksDocument = new BookmarksDocument(div.querySelector("h1").textContent)
+	/**
+	* @param {BookmarkFolder}  parent
+	* @param {Element}         dlNode
+	* @returns {BookmarkFolder}
+	*/
+	function walk(parent, dlNode) {
+		for(const dlChild of dlNode.children) {
+			if(dlChild.tagName === "DT") {
+				const dtChild = dlChild.firstElementChild
+				if(dtChild.tagName === "A") {
+					const bookmarkLink = bookmarksDocument.createLink(
+						dtChild.textContent,
+						dtChild.getAttribute("ICON"),
+						dtChild.href,
+						new Date(dtChild.getAttribute("ADD_DATE") * 1000)
+					)
+					const lastModified = dtChild.getAttribute("LAST_MODIFIED")
+					if(lastModified > "0") {
+						bookmarkLink.updatedAt = new Date(lastModified * 1000)
+					}
+					parent.appendChild(bookmarkLink)
+				} else if(dtChild.tagName === "H3"
+					&amp;&amp; dtChild.nextElementSibling &amp;&amp; dtChild.nextElementSibling.tagName === "DL") {
+					/**
+					 * ^ Check nextElementSibling because sometimes there are no dl placeholder, meaning if there is no children the dl node is not added
+					 */
+					const bookmarkFolder = bookmarksDocument.createFolder(
+						dtChild.textContent,
+						new Date(dtChild.getAttribute("ADD_DATE") * 1000),
+					)
+					const lastModified = dtChild.getAttribute("LAST_MODIFIED")
+					if(lastModified > "0") {
+						bookmarkFolder.updatedAt = new Date(lastModified * 1000)
+					}
+					parent.appendChild(bookmarkFolder)
+					walk(bookmarkFolder, dtChild.nextElementSibling)
+				}
+			}
+		}
+	}
+	walk(bookmarksDocument.documentElement, div.querySelector("dl"))
+	return bookmarksDocument
+}
+
+/**
+ * @param   {DataBookmarkFolder|DataBookmarkLink} data
+ * @param   {BookmarkFolder}                      parentBookmark
+ * @returns {BookmarkFolder|BookmarkLink}
+ */
+export function deserialize(data, parentBookmark) {
+	let bookmark = null
+	if(data.type === "folder") {
+		bookmark = parentBookmark.ownerDocument.createFolder(data.title, new Date(data.createdAt))
+		if(data.updatedAt) {
+			bookmark.updatedAt = new Date(data.updatedAt)
+		}
+		for(const child of data.children) {
+			bookmark.appendChild(deserialize(child, bookmark))
+		}
+	} else if(data.type === "link") {
+		bookmark = parentBookmark.ownerDocument.createLink(data.title, data.icon, data.url, new Date(data.createdAt))
+		if(data.updatedAt) {
+			bookmark.updatedAt = new Date(data.updatedAt)
+		}
+	}
+	return bookmark
+}
+
+/**
+ * Create a Netscape bookmark document from a bookmarkFolder given a Document is provided
+ * @todo untested
+ * @todo not working atm because the Netscape Bookmark Document is not valid HTML.
+ * There is need for an additional Parser
+ * @param   {BookmarksDocument} bookmarksDocument
+ * @param   {Document}          document
+ * @returns {Document}
+ */
+export function createNetscapeBookmarkDocument(bookmarksDocument, document) {
+	// Creating a new Document type won't be enough because there's still the issue of having multiple root elements
+	const netscapeBookmarkDocument = document.implementation.createHTMLDocument("Bookmarks")
+	netscapeBookmarkDocument.head.innerHTML +=(`
+		&lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+		&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; img-src data: *; object-src 'none'">&lt;/meta>
+	`)
+	const rootNode = netscapeBookmarkDocument.createElement("dl")
+	netscapeBookmarkDocument.body.appendChild(rootNode)
+	const h1 = netscapeBookmarkDocument.createElement("h1")
+	const { documentElement } = bookmarksDocument
+	h1.textContent = documentElement.title
+	rootNode.appendChild(h1)
+	/**
+	 *
+	 * @param {Element}        parentNode
+	 * @param {BookmarkFolder} parentBookmarkFolder
+	 */
+	function walk(parentNode, parentBookmarkFolder) {
+		const dl = netscapeBookmarkDocument.createElement("dl")
+		const p = netscapeBookmarkDocument.createElement("p")
+		dl.appendChild(p)
+		for(const childBookmarkFolder of parentBookmarkFolder.children) {
+			const dt = netscapeBookmarkDocument.createElement("dt")
+			if(childBookmarkFolder.type === Bookmark.FOLDER) {
+				const h3 = netscapeBookmarkDocument.createElement("h3")
+				h3.textContent = childBookmarkFolder.title
+				h3.setAttribute("ADD_DATE", Math.round(childBookmarkFolder.createdAt / 1000))
+				if(childBookmarkFolder.updatedAt) {
+					h3.setAttribute("LAST_MODIFIED", Math.round((childBookmarkFolder.updatedAt) / 1000))
+				} else {
+					h3.setAttribute("LAST_MODIFIED", "0")
+				}
+				dt.appendChild(h3)
+				/**
+				 * Do not add an empty dl node if there are no children
+				 */
+				walk(dt, childBookmarkFolder)
+			} else if(childBookmarkFolder.type === Bookmark.LINK) {
+				const a = netscapeBookmarkDocument.createElement("a")
+				a.href = childBookmarkFolder.url
+				a.textContent = childBookmarkFolder.title
+				if(childBookmarkFolder.icon) {
+					a.setAttribute("ICON", childBookmarkFolder.icon)
+				}
+				a.setAttribute("ADD_DATE", Math.round(childBookmarkFolder.createdAt / 1000))
+				if(childBookmarkFolder.updatedAt) {
+					a.setAttribute("LAST_MODIFIED", Math.round((childBookmarkFolder.updatedAt) / 1000))
+				}
+				dt.appendChild(a)
+			}
+			p.appendChild(dt)
+		}
+		parentNode.appendChild(dl)
+	}
+	walk(rootNode, documentElement)
+	return netscapeBookmarkDocument
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 08:31:32 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>
