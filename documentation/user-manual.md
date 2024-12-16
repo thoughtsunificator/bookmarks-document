@@ -2,7 +2,7 @@
 
 This manual is aimed at end users and attempts to describe the operational part of the software; how the library can be used. 
 
-> ⚠️ This guide will not explain the motivations behind the as it is already covered in [README file](../README.md#️-motivations).
+> ⚠️ This guide will not explain the motivations behind the software as it is already covered in [README file](../README.md#️-motivations).
 
 > A documentation is available https://bookmarks-document.unificator.me 
 
