@@ -37,7 +37,7 @@ Please refer to the [user manual](./documentation/user-manual.md).
 ### 🧪 Testing
 
 Lint:
-- ``npm run lint``
+- ``npm run test:lint``
 
 Lint individually:
 
@@ -45,10 +45,10 @@ Lint individually:
   <summary>Spoiler</summary>
 
   Files ([Knip](https://github.com/webpro-nl/knip)):
-  - ``npm run lint:files``
+  - ``npm run test:lint:files``
 
   Javascript files ([eslint](https://github.com/eslint/eslint)):
-  - ``npm run lint:ecmascript``
+  - ``npm run test:lint:ecmascript``
   
 </details>
 
@@ -59,7 +59,7 @@ Run test with [ava](https://github.com/avajs/ava):
 > ``npm run test:watch`` is also available if you want to enable ava's [watch mode](https://github.com/avajs/ava/blob/main/docs/recipes/watch-mode.md). 
 
 Coverage:
-- ``npm run test:coverage``
+- ``npm run build:coverage``
 > The coverage report files are available under **dist/coverage**
 
 ## 🧒 Contributions
