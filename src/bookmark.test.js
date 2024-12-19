@@ -80,3 +80,4 @@ ava("Retrieve the next folder sibling", (test) => {
 	mock(bookmark, "parent", () => ({ children: [bookmark, bookmark2] }))
 	test.is(bookmark.nextFolderSibling, null)
 })
+

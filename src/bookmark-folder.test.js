@@ -251,3 +251,17 @@ ava("Get the path of a bookmark folder", test => {
 	bookmarkFolder.appendChild(rootChild)
 	test.is(rootChild.path, "/Root/Test")
 })
+
+ava("Rename a bookmark folder", test => {
+	const bookmarkFolder = new BookmarkFolder("Root")
+	const rootChild = new BookmarkFolder("Test")
+	bookmarkFolder.appendChild(rootChild)
+	const rootChild2 = new BookmarkFolder("Test2")
+	bookmarkFolder.appendChild(rootChild2)
+	rootChild2.rename("TestA")
+	test.is(rootChild2.title, "TestA")
+	test.throws(() => {
+		rootChild2.rename("Test")
+	}, { message: "A bookmark with the title 'Test' already exists" })
+	test.is(rootChild2.title, "TestA")
+})

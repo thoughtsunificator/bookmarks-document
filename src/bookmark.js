@@ -33,7 +33,7 @@ class Bookmark {
 	 * @param {Date}   [updatedAt] - Valid ISO 8601 date string
 	 */
 	constructor(title, type, createdAt, updatedAt) {
-		this.title = title
+		this._title = title
 		this.createdAt = createdAt
 		this.updatedAt = updatedAt
 		/** @type {BookmarksDocument} */
@@ -47,6 +47,10 @@ class Bookmark {
 		 * @type {object}
 		 * **/
 		this.attributes = {}
+	}
+
+	get title() {
+		return this._title
 	}
 
 	/**
@@ -112,6 +116,19 @@ class Bookmark {
 	 */
 	clone() {
 		throw new Error("Not implemented")
+	}
+
+	/**
+	 * @param {string} newTitle
+	 */
+	rename(newTitle) {
+		if(this.parent) {
+			const titles = this.parent.children.map(child => child.title)
+			if(titles.includes(newTitle)) {
+				throw new Error(`A bookmark with the title '${newTitle}' already exists`)
+			}
+		}
+		this._title = newTitle
 	}
 
 	/**
