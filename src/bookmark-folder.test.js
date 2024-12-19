@@ -10,7 +10,7 @@ ava("Add a child", (test) => {
 	bookmarkFolder.appendChild(a)
 	const b = new BookmarkFolder("B")
 	mock(b, "remove")
-	bookmarkFolder.appendChild(b)
+	a.appendChild(b)
 	bookmarkFolder.appendChild(b)
 	test.is(b.remove.mock.callCount, 1)
 	test.deepEqual(bookmarkFolder.children.map(item => item.title), ["A", "B"])
@@ -230,4 +230,12 @@ ava("Retrieve the last folder child", (test) => {
 	bookmarkFolder2.appendChild(new BookmarkFolder("B"))
 	bookmarkFolder2.appendChild(new BookmarkLink("A"))
 	test.is(bookmarkFolder2.lastBookmarkFolder, bookmarkFolder2.children[0])
+})
+
+ava("Get the path of a bookmark folder", test => {
+	const bookmarkFolder = new BookmarkFolder("Root")
+	test.is(bookmarkFolder.path, "/Root")
+	const rootChild = new BookmarkFolder("Test")
+	bookmarkFolder.appendChild(rootChild)
+	test.is(rootChild.path, "/Root/Test")
 })

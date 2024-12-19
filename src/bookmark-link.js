@@ -27,6 +27,15 @@ class BookmarkLink extends Bookmark {
 		this.url = url
 	}
 
+	get path() {
+		let path = ""
+		if(this.parent) {
+			path += this.parent.path
+		}
+		path += "/" + this.title + ".link"
+		return path
+	}
+
 	/**
 	 * @returns {BookmarkLink}
 	 * @todo original property to access the original bookmark

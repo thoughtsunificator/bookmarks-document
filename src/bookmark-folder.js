@@ -77,6 +77,15 @@ class BookmarkFolder extends Bookmark {
 		return childFolders[childFolders.length - 1]
 	}
 
+	get path() {
+		let path = ""
+		if(this.parent) {
+			path += this.parent.path
+		}
+		path += "/" + this.title
+		return path
+	}
+
 	/**
 	 * @returns {BookmarkFolder}
 	 * @param {boolean} deep
