@@ -77,6 +77,15 @@ class BookmarkFolder extends Bookmark {
 		return childFolders[childFolders.length - 1]
 	}
 
+	get path() {
+		let path = ""
+		if(this.parent) {
+			path += this.parent.path
+		}
+		path += "/" + this.title
+		return path
+	}
+
 	/**
 	 * @returns {BookmarkFolder}
 	 * @param {boolean} deep
@@ -98,6 +107,10 @@ class BookmarkFolder extends Bookmark {
 	 * @param  {Bookmark} bookmark
 	 */
 	appendChild(bookmark) {
+		const titles = this.children.map(child => child.title)
+		if(titles.includes(bookmark.title)) {
+			throw new Error(`A bookmark with the title '${bookmark.title}' already exists`)
+		}
 		if(bookmark.parent !== null) {
 			bookmark.remove()
 		}

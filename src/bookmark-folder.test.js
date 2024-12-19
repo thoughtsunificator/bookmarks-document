@@ -10,10 +10,22 @@ ava("Add a child", (test) => {
 	bookmarkFolder.appendChild(a)
 	const b = new BookmarkFolder("B")
 	mock(b, "remove")
-	bookmarkFolder.appendChild(b)
+	a.appendChild(b)
 	bookmarkFolder.appendChild(b)
 	test.is(b.remove.mock.callCount, 1)
 	test.deepEqual(bookmarkFolder.children.map(item => item.title), ["A", "B"])
+})
+
+ava("Two child cannot have the same title", (test) => {
+	const bookmarkFolder = new BookmarkFolder("Root")
+	const bookmarksDocument = new BookmarksDocument()
+	bookmarkFolder.ownerDocument = bookmarksDocument
+	const a = new BookmarkFolder("A")
+	bookmarkFolder.appendChild(a)
+	const a2 = new BookmarkFolder("A")
+	test.throws(() => {
+		bookmarkFolder.appendChild(a2)
+	}, { message: "A bookmark with the title 'A' already exists" })
 })
 
 ava("Remove a child", (test) => {
@@ -230,4 +242,12 @@ ava("Retrieve the last folder child", (test) => {
 	bookmarkFolder2.appendChild(new BookmarkFolder("B"))
 	bookmarkFolder2.appendChild(new BookmarkLink("A"))
 	test.is(bookmarkFolder2.lastBookmarkFolder, bookmarkFolder2.children[0])
+})
+
+ava("Get the path of a bookmark folder", test => {
+	const bookmarkFolder = new BookmarkFolder("Root")
+	test.is(bookmarkFolder.path, "/Root")
+	const rootChild = new BookmarkFolder("Test")
+	bookmarkFolder.appendChild(rootChild)
+	test.is(rootChild.path, "/Root/Test")
 })

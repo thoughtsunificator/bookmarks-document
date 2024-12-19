@@ -90,6 +90,13 @@ class Bookmark {
 	}
 
 	/**
+	 * @type {string}
+	 */
+	get path() {
+		throw new Error("Not implemented")
+	}
+
+	/**
 	 * Return a list of properties that can then be serialized into a string
 	 * @abstract
 	 * @returns {object}

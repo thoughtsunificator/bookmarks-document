@@ -37,3 +37,8 @@ ava("Serialize the bookmark link to an object keeping only relevant properties",
 		attributes: { bar: "foo" }
 	})
 })
+
+ava("Get the path of a bookmark link", test => {
+	const bookmarkLink = new BookmarkLink("test")
+	test.is(bookmarkLink.path, "/test.link")
+})
