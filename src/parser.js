@@ -7,7 +7,6 @@
  */
 
 /**
- * @todo Move to another repository, this parser will be used by the server
  * This module is responsible for the parsing of internal and external bookmark documents.
  * @todo The Parser module should not have to know any details about the BookmarksDocument. It should work with data payload (DataBookmarkLink & DataBookmarkFolder)
  * @todo Fix netscape bookmark document
@@ -30,15 +29,15 @@
  * @property {str}                                        url
  * @property {str}                                        icon
  *
- * BookmarkPayload is used to serialize from and deserialize to a BookmarksDocument
- * @typedef  {Array<DataBookmarkLink|DataBookmarkFolder>} BookmarkPayload
+ * BookmarksPayload is used to serialize from and deserialize to a BookmarksDocument
+ * @typedef  {Array<DataBookmarkLink|DataBookmarkFolder>} BookmarksPayload
  *
  */
 import { BookmarksDocument, Bookmark } from "../index.js"
 
 /**
-* Create a BookmarksDocument from a BookmarkPayload
-* @param   {BookmarkPayload}  data
+* Create a BookmarksDocument from a BookmarksPayload
+* @param   {BookmarksPayload}  data
 * @returns {BookmarksDocument}
 */
 export function parseInternalJSON(items) {

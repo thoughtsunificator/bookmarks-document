@@ -9,7 +9,6 @@ The package is exported through a single file called `index.js` which is located
 ### Static analysis
 
 - [eslint](https://github.com/eslint/eslint) (analysis for `.js` files)
-- [Knip](https://github.com/webpro-nl/knip) (general analysis for unused files, dependencies and more)
 
 ### Testing
 

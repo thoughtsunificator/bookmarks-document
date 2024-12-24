@@ -15,7 +15,7 @@ Simple, straight-forward and familiar API before anything.
 * ✅ Supports well known formats such as Netscape Bookmark File Format
 * ✅ Can be serialized to a JSON representation
 
-> While this is not strictly a feature, this software is [free](https://www.gnu.org/philosophy/free-sw.en.html), [self-hosted](https://en.wikipedia.org/wiki/Self-hosting_(web_services)) and [unhosted](https://unhosted.org).  
+> While this is not strictly a feature, this software is [free](https://www.gnu.org/philosophy/free-sw.en.html).
 
 > 💡 Missing a feature? Checkout the [TODO file](./TODO.md) to see what work is in progress.
 
@@ -32,7 +32,7 @@ Please refer to the [user manual](./documentation/user-manual.md).
 
 ## 🔨 Development
 
-> It is recommended to read the [developer manual](../documentation/developer-manual.md).
+> It is recommended to read the [developer manual](./documentation/developer-manual.md).
 
 ### 🧪 Testing
 
@@ -43,9 +43,6 @@ Lint individually:
 
 - <details>
   <summary>Spoiler</summary>
-
-  Files ([Knip](https://github.com/webpro-nl/knip)):
-  - ``npm run test:lint:files``
 
   Javascript files ([eslint](https://github.com/eslint/eslint)):
   - ``npm run test:lint:ecmascript``
