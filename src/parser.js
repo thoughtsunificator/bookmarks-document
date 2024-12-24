@@ -30,15 +30,15 @@
  * @property {str}                                        url
  * @property {str}                                        icon
  *
- * BookmarkPayload is used to serialize from and deserialize to a BookmarksDocument
- * @typedef  {Array<DataBookmarkLink|DataBookmarkFolder>} BookmarkPayload
+ * BookmarksPayload is used to serialize from and deserialize to a BookmarksDocument
+ * @typedef  {Array<DataBookmarkLink|DataBookmarkFolder>} BookmarksPayload
  *
  */
 import { BookmarksDocument, Bookmark } from "../index.js"
 
 /**
-* Create a BookmarksDocument from a BookmarkPayload
-* @param   {BookmarkPayload}  data
+* Create a BookmarksDocument from a BookmarksPayload
+* @param   {BookmarksPayload}  data
 * @returns {BookmarksDocument}
 */
 export function parseInternalJSON(items) {
