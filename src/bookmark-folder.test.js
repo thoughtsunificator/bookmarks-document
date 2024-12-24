@@ -237,5 +237,7 @@ ava("Get the path of a bookmark folder", test => {
 	test.is(bookmarkFolder.path, "/Root")
 	const rootChild = new BookmarkFolder("Test")
 	bookmarkFolder.appendChild(rootChild)
-	test.is(rootChild.path, "/Root/Test")
+	const rootChild2 = new BookmarkFolder("Test")
+	bookmarkFolder.appendChild(rootChild2)
+	test.is(rootChild2.path, "/Root/Test[1]")
 })

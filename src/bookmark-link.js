@@ -32,7 +32,11 @@ class BookmarkLink extends Bookmark {
 		if(this.parent) {
 			path += this.parent.path
 		}
-		path += "/" + this.title + ".link"
+		path += "/" + (this.title || "")
+		if(this.parent) {
+			path += `[${this.parent.children.indexOf(this)}]`
+		}
+		path += ".link"
 		return path
 	}
 

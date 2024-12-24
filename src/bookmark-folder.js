@@ -83,6 +83,9 @@ class BookmarkFolder extends Bookmark {
 			path += this.parent.path
 		}
 		path += "/" + this.title
+		if(this.parent) {
+			path += `[${this.parent.children.indexOf(this)}]`
+		}
 		return path
 	}
 

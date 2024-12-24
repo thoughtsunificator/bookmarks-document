@@ -1,5 +1,6 @@
 import ava from "ava"
 import Bookmark from "./bookmark.js"
+import mock from "@thoughtsunificator/mock"
 import { BookmarkLink, BookmarksDocument } from "../index.js"
 
 ava("Clone a bookmark link", (test) => {
@@ -40,5 +41,8 @@ ava("Serialize the bookmark link to an object keeping only relevant properties",
 
 ava("Get the path of a bookmark link", test => {
 	const bookmarkLink = new BookmarkLink("test")
-	test.is(bookmarkLink.path, "/test.link")
+	mock(bookmarkLink, "parent", { path: "Parent", children: [bookmarkLink] })
+	test.is(bookmarkLink.path, "Parent/test[0].link")
+	mock(bookmarkLink, "parent", { path: "Parent", children: [null, bookmarkLink] })
+	test.is(bookmarkLink.path, "Parent/test[1].link")
 })
